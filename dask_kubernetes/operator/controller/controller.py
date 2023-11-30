@@ -71,7 +71,9 @@ def _consolidate_env_vars(existing_env_vars, additional_env_vars):
 
     overlapping_env_names = existing_env_names.intersection(additional_env_names)
 
-    additional_env_vars_to_keep = [d for d in additional_env_vars if d["name"] not in overlapping_env_names]
+    additional_env_vars_to_keep = [
+        d for d in additional_env_vars if d["name"] not in overlapping_env_names
+    ]
 
     return [*existing_env_vars, *additional_env_vars_to_keep]
 
@@ -171,7 +173,9 @@ def build_worker_deployment_spec(
     ]
     for i in range(len(deployment_spec["spec"]["template"]["spec"]["containers"])):
         if "env" in deployment_spec["spec"]["template"]["spec"]["containers"][i]:
-            existing_env_vars = deployment_spec["spec"]["template"]["spec"]["containers"][i]["env"]
+            existing_env_vars = deployment_spec["spec"]["template"]["spec"][
+                "containers"
+            ][i]["env"]
             all_env_vars = _consolidate_env_vars(existing_env_vars, env)
             deployment_spec["spec"]["template"]["spec"]["containers"][i]["env"] = all_env_vars
         else:
@@ -209,7 +213,9 @@ def build_job_pod_spec(job_name, cluster_name, namespace, spec, annotations, lab
     ]
     for i in range(len(pod_spec["spec"]["containers"])):
         if "env" in pod_spec["spec"]["containers"][i]:
-            existing_env_vars = pod_spec["spec"]["template"]["spec"]["containers"][i]["env"]
+            existing_env_vars = pod_spec["spec"]["template"]["spec"][
+                "containers"
+            ][i]["env"]
             all_env_vars = _consolidate_env_vars(existing_env_vars, env)
             pod_spec["spec"]["containers"][i]["env"] = all_env_vars
         else:
