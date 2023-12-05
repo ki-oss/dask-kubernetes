@@ -34,7 +34,7 @@ jobs:
     - name: fetch git tags and GITHUB_ENV
       id: gitfetch
       run: |
-        export REGISTRY=ghcr.io
+        export REGISTRY=ghcr.io/ki-oss
         export IMAGE_NAME="dask-kubernetes-operator"
         export GIT_DESCRIBE=$(git describe --tags --always)
         export FULL_IMAGE=${REGISTRY}/${IMAGE_NAME}
